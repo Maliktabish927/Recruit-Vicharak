@@ -1,0 +1,23 @@
+#ifndef AST_H
+#define AST_H
+
+#include <memory>
+#include <vector>
+#include <string>
+
+enum NodeType {
+    N_PROGRAM,
+    N_STATEMENT,
+    N_ASSIGNMENT,
+    N_EXPRESSION,
+    N_TERM,
+    N_FACTOR
+};
+
+struct ASTNode {
+    NodeType type;
+    std::string value;
+    std::vector<std::shared_ptr<ASTNode>> children;
+};
+
+#endif

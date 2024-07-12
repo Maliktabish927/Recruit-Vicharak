@@ -1,0 +1,22 @@
+#ifndef CODEGEN_H
+#define CODEGEN_H
+
+#include "ast.h"
+#include <string>
+
+class CodeGen {
+public:
+    CodeGen();
+    std::string generateCode(std::shared_ptr<ASTNode> root);
+private:
+    void genProgram(std::shared_ptr<ASTNode> node);
+    void genStatement(std::shared_ptr<ASTNode> node);
+    void genAssignment(std::shared_ptr<ASTNode> node);
+    void genExpression(std::shared_ptr<ASTNode> node);
+    void genTerm(std::shared_ptr<ASTNode> node);
+    void genFactor(std::shared_ptr<ASTNode> node);
+
+    std::string code;
+};
+
+#endif

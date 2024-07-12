@@ -1,0 +1,44 @@
+#ifndef LEXER_H
+#define LEXER_H
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+enum TokenType {
+    T_IDENTIFIER,
+    T_NUMBER,
+    T_ASSIGN,
+    T_ADD,
+    T_SUB,
+    T_MUL,
+    T_DIV,
+    T_LPAREN,
+    T_RPAREN,
+    T_SEMICOLON,
+    T_IF,
+    T_ELSE,
+    T_EOF,
+    T_UNKNOWN
+};
+
+struct Token {
+    TokenType type;
+    std::string value;
+};
+
+class Lexer {
+public:
+    Lexer(const std::string& input);
+    Token getNextToken();
+private:
+    char getNextChar();
+    void skipWhitespace();
+    Token identifier();
+    Token number();
+    std::string input;
+    size_t pos;
+    char currentChar;
+};
+
+#endif

@@ -1,0 +1,35 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "lexer.h"
+#include "parser.h"
+#include "codegen.h"
+
+int main() {
+    std::ifstream inputFile("input.sl");
+    if (!inputFile) {
+        std::cerr << "Error opening input file." << std::endl;
+        return 1;
+    }
+
+    std::stringstream buffer;
+    buffer << inputFile.rdbuf();
+    std::string input = buffer.str();
+
+    Lexer lexer(input);
+    Parser parser(lexer);
+    auto ast = parser.parse();
+
+    CodeGen codeGen;
+    std::string assemblyCode = codeGen.generateCode(ast);
+
+    std::ofstream outputFile("output.asm");
+    if (!outputFile) {
+        std::cerr << "Error opening output file." << std::endl;
+        return 1;
+    }
+    outputFile << assemblyCode;
+
+    std::cout << "Compilation successful. Output written to output.asm" << std::endl;
+    return 0;
+}
